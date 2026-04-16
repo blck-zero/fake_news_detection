@@ -1,0 +1,35 @@
+# Dependencies
+/node_modules/
+/frontend/node_modules/
+
+# Build output
+/frontend/dist/
+/frontend/.vite/
+
+# Python
+/.venv/
+/backend/.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variables / secrets
+.env
+.env.*
+frontend/.env
+frontend/.env.*
+
+# Local databases / storage
+*.db
+*.sqlite3
+fake_news.db
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Logs
+*.log
+

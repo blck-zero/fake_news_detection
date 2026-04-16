@@ -1,0 +1,21 @@
+{
+  "trained_at": "2026-04-16T11:18:07.210507Z",
+  "label_mapping": {
+    "0": "REAL",
+    "1": "FAKE"
+  },
+  "config": {
+    "vectorizer_ngram_range": [
+      1,
+      2
+    ],
+    "vectorizer_max_features": 50000,
+    "vectorizer_min_df": 2,
+    "test_size": 0.2,
+    "random_state": 42
+  },
+  "metrics": {
+    "accuracy": 0.875,
+    "classification_report": "              precision    recall  f1-score   support\n\n           0     1.0000    0.7500    0.8571         4\n           1     0.8000    1.0000    0.8889         4\n\n    accuracy                         0.8750         8\n   macro avg     0.9000    0.8750    0.8730         8\nweighted avg     0.9000    0.8750    0.8730         8\n"
+  }
+}
