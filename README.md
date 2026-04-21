@@ -215,6 +215,20 @@ gunicorn "backend.app:create_app()" -b 0.0.0.0:$PORT
 
 ---
 
+## One-click deploy on Render (Blueprint)
+
+This repo includes `render.yaml`, which can deploy **both** the backend and frontend from this monorepo:
+
+- **Backend**: Python web service (`gunicorn`), with a **persistent disk** mounted at `/var/data` to store `fake_news.db`.
+- **Frontend**: Static site built from `frontend/` (`vite build`).
+
+After the first deploy, set these in the Render dashboard:
+
+- **Frontend (`fake-news-frontend`)**: set `VITE_API_BASE_URL` to your backend public URL, e.g. `https://fake-news-backend.onrender.com`
+- **Backend (`fake-news-backend`)**: optionally set `FRONTEND_ORIGIN` to your frontend public URL for stricter CORS
+
+---
+
 ## Notes / Troubleshooting
 
 - If you get `model_missing`, run the training command to generate `backend/model/artifacts/model.joblib` and `vectorizer.pkl`.

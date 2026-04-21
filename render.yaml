@@ -1,0 +1,38 @@
+services:
+  # Flask API (ML inference + SQLite history)
+  - type: web
+    name: fake-news-backend
+    runtime: python
+    plan: free
+    region: oregon
+    rootDir: .
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: gunicorn "backend.app:create_app()" -b 0.0.0.0:$PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    disk:
+      name: fake-news-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:////var/data/fake_news.db
+      # Lock down CORS in the Render dashboard after frontend deploy
+      # (or keep "*" for early testing).
+      - key: FRONTEND_ORIGIN
+        value: "*"
+
+  # React (Vite) SPA
+  - type: static_site
+    name: fake-news-frontend
+    plan: free
+    region: oregon
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    autoDeploy: true
+    envVars:
+      # Vite injects env vars at build time; provide the backend public URL.
+      # Example: https://fake-news-backend.onrender.com
+      - key: VITE_API_BASE_URL
+        sync: false
