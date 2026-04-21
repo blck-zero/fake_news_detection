@@ -10,13 +10,11 @@ services:
     startCommand: gunicorn "backend.app:create_app()" -b 0.0.0.0:$PORT
     healthCheckPath: /health
     autoDeploy: true
-    disk:
-      name: fake-news-data
-      mountPath: /var/data
-      sizeGB: 1
     envVars:
       - key: DATABASE_URL
-        value: sqlite:////var/data/fake_news.db
+        # NOTE: On the free plan, Render does not support persistent disks.
+        # This SQLite file will be ephemeral and may reset on redeploy/restart.
+        value: sqlite:////tmp/fake_news.db
       # Lock down CORS in the Render dashboard after frontend deploy
       # (or keep "*" for early testing).
       - key: FRONTEND_ORIGIN
@@ -27,7 +25,6 @@ services:
     name: fake-news-frontend
     runtime: static
     plan: free
-    region: oregon
     rootDir: frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
