@@ -23,7 +23,7 @@ services:
         value: "*"
 
   # React (Vite) SPA
-  - type: static_site
+  - type: static
     name: fake-news-frontend
     plan: free
     region: oregon
