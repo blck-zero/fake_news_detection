@@ -217,15 +217,15 @@ gunicorn "backend.app:create_app()" -b 0.0.0.0:$PORT
 
 ## One-click deploy on Render (Blueprint)
 
-This repo includes `render.yaml`, which can deploy **both** the backend and frontend from this monorepo:
+This repo includes `render.yaml`, which deploys the **backend** on Render (Blueprint).
 
-- **Backend**: Python web service (`gunicorn`), with a **persistent disk** mounted at `/var/data` to store `fake_news.db`.
-- **Frontend**: Static site built from `frontend/` (`vite build`).
+- **Backend**: Python web service (`gunicorn`). On the free plan, SQLite is **ephemeral** (no persistent disk).
 
-After the first deploy, set these in the Render dashboard:
+After the backend deploy, set these in the Render dashboard:
 
-- **Frontend (`fake-news-frontend`)**: set `VITE_API_BASE_URL` to your backend public URL, e.g. `https://fake-news-backend.onrender.com`
-- **Backend (`fake-news-backend`)**: optionally set `FRONTEND_ORIGIN` to your frontend public URL for stricter CORS
+- **Backend (`fake-news-backend`)**: set `FRONTEND_ORIGIN` to your Vercel frontend URL for stricter CORS (optional)
+
+For Vercel, this repo includes `frontend/vercel.json` so React Router routes work on refresh/deep links.
 
 ---
 

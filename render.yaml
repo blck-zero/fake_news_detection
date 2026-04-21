@@ -19,18 +19,3 @@ services:
       # (or keep "*" for early testing).
       - key: FRONTEND_ORIGIN
         value: "*"
-
-  # React (Vite) SPA
-  - type: web
-    name: fake-news-frontend
-    runtime: static
-    plan: free
-    rootDir: frontend
-    buildCommand: npm ci && npm run build
-    staticPublishPath: dist
-    autoDeploy: true
-    envVars:
-      # Vite injects env vars at build time; provide the backend public URL.
-      # Example: https://fake-news-backend.onrender.com
-      - key: VITE_API_BASE_URL
-        sync: false
